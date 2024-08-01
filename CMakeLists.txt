@@ -18,6 +18,7 @@ include_directories(
   ${EIGEN3_INCLUDE_DIR}
   imu_gps_localizer/include
   ros_wrapper/include
+  /usr/include/eigen3
 )
 
 add_library(ros_wrapper_lib

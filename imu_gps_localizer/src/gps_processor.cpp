@@ -7,6 +7,10 @@ namespace ImuGpsLocalization {
 GpsProcessor::GpsProcessor(const Eigen::Vector3d& I_p_Gps) : I_p_Gps_(I_p_Gps) { }
 
 bool GpsProcessor::UpdateStateByGpsPosition(const Eigen::Vector3d& init_lla, const GpsPositionDataPtr gps_data_ptr, State* state) {
+    if (!gps_data_ptr || !state) {
+        return false; // 检查指针是否为空
+    }
+
     Eigen::Matrix<double, 3, 15> H;
     Eigen::Vector3d residual;
     ComputeJacobianAndResidual(init_lla, gps_data_ptr, *state, &H, &residual);
@@ -23,6 +27,8 @@ bool GpsProcessor::UpdateStateByGpsPosition(const Eigen::Vector3d& init_lla, con
     // Covarance.
     const Eigen::MatrixXd I_KH = Eigen::Matrix<double, 15, 15>::Identity() - K * H;
     state->cov = I_KH * P * I_KH.transpose() + K * V * K.transpose();
+
+    return true; // 返回成功状态
 }
 
 void GpsProcessor::ComputeJacobianAndResidual(const Eigen::Vector3d& init_lla,  
