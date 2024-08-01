@@ -34,10 +34,10 @@ LocalizationWrapper::LocalizationWrapper(ros::NodeHandle& nh) {
                                                               I_p_Gps);
 
     // Subscribe topics.
-    imu_sub_ = nh.subscribe("/imu/data", 10,  &LocalizationWrapper::ImuCallback, this);
-    gps_position_sub_ = nh.subscribe("/fix", 10,  &LocalizationWrapper::GpsPositionCallback, this);
+    imu_sub_ = nh.subscribe("/wit/imu", 10,  &LocalizationWrapper::ImuCallback, this);
+    gps_position_sub_ = nh.subscribe("/nmea_sentence", 10,  &LocalizationWrapper::GpsPositionCallback, this);
 
-    state_pub_ = nh.advertise<nav_msgs::Path>("fused_path", 10);
+    state_pub_ = nh.advertise<nav_msgs::Path>("fusion_path", 10);
 }
 
 LocalizationWrapper::~LocalizationWrapper() {
