@@ -9,10 +9,9 @@
     <param name="I_p_Gps_z"       type="double" value="0.0" />
     <param name="log_folder"      type="string" value="$(find imu_gps_localization)" />
 
+
 	<!--IMU-->
     <include file="$(find ros_imu_wit)/launch/rviz_and_imu.launch">
-        <arg name="port" value="/dev/imu_usb" />
-        <arg name="baud" value="115200" />
     </include>
     
 	<!--GPS-->

@@ -71,10 +71,10 @@ void LocalizationWrapper::ImuCallback(const sensor_msgs::ImuConstPtr& imu_msg_pt
 
 void LocalizationWrapper::GpsPositionCallback(const sensor_msgs::NavSatFixConstPtr& gps_msg_ptr) {
     // Check the gps_status.
-    if (gps_msg_ptr->status.status != 2) {
-        LOG(WARNING) << "[GpsCallBack]: Bad gps message!";
-        return;
-    }
+    // if (gps_msg_ptr->status.status != 2) {
+    //     LOG(WARNING) << "[GpsCallBack]: Bad gps message!";
+    //     return;
+    // }
 
     ImuGpsLocalization::GpsPositionDataPtr gps_data_ptr = std::make_shared<ImuGpsLocalization::GpsPositionData>();
     gps_data_ptr->timestamp = gps_msg_ptr->header.stamp.toSec();
