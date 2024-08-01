@@ -7,14 +7,23 @@
     <param name="I_p_Gps_x"       type="double" value="0.0" />
     <param name="I_p_Gps_y"       type="double" value="0.0" />
     <param name="I_p_Gps_z"       type="double" value="0.0" />
-
     <param name="log_folder"      type="string" value="$(find imu_gps_localization)" />
 
-    <node name="nmea_topic_driver" pkg="nmea_navsat_driver" type="nmea_topic_driver" output="screen" />
+	<!--IMU-->
+    <include file="$(find ros_imu_wit)/launch/rviz_and_imu.launch">
+        <arg name="port" value="/dev/imu_usb" />
+        <arg name="baud" value="115200" />
+    </include>
+    
+	<!--GPS-->
+    <include file="$(find nmea_navsat_driver)/launch/nmea_serial_driver.launch">
+        <arg name="port" value="/dev/gps_usb" />
+        <arg name="baud" value="115200" />
+    </include>
+
     <node name="imu_gps_localization_node" pkg="imu_gps_localization" type="imu_gps_localization_node" output="screen" />
 
-    <node pkg="rviz" type="rviz" name="rviz" output="screen" 
-      args="-d $(find imu_gps_localization)/ros_wrapper/rviz/default.rviz" required="true">
+    <node pkg="rviz" type="rviz" name="rviz" output="screen" args="-d $(find imu_gps_localization)/ros_wrapper/rviz/default.rviz" required="true">
     </node>
 
 </launch>
